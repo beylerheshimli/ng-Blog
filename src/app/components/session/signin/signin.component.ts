@@ -67,7 +67,6 @@ export class SigninComponent implements OnInit {
         this.authService.signin(user)
             .subscribe(
                 (data) => {
-                    console.log(data);
                     if (data.opr) {
                         localStorage.setItem('token', data.value.token);
                         this.dataService.sendData(data.value);

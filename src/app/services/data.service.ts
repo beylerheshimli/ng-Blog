@@ -16,23 +16,5 @@ export class DataService {
 
     sendData(value: any) {
         this.subject.next(value);
-        console.log('sendSharedData', value);
-    }
-
-    setError(err: HttpErrorResponse, url: string) {
-        console.log('com', err);
-        if (err.status === 500) {
-            return [{severity: 'warn', summary: 'Diqqət!', detail: err.error}];
-        } else if (err.status === 0) {
-            return [{severity: 'info', summary: 'Diqqət!', detail: 'Zəhmət olmasa internet əlaqənizi yoxlayın'}];
-        } else if (err.status === 404) {
-            return [{severity: 'info', summary: 'Diqqət!', detail: err.error === '' ? 'Məlumat tapılmadı' : err.error}];
-        } else if (err.status === 401) {
-            setTimeout(() => {
-                this.router.navigate(['session/signin'], {queryParams: {returnUrl: url}});
-            }, 3000);
-
-            return [{severity: 'warn', summary: 'Diqqət!', detail: 'Sizin sessiyanız başa çatdı'}];
-        }
     }
 }

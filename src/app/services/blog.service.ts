@@ -25,7 +25,7 @@ export class BlogService {
     }
 
     deleteBlog(id: number) {
-        return this.http.post<any>(`${this.config.apiUrl}/deletePost.php`, {id:id});
+        return this.http.post<any>(`${this.config.apiUrl}/deletePost.php`, {id: id});
     }
 
     getPost(id: number) {

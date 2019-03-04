@@ -39,7 +39,6 @@ export class SidebarComponent implements OnInit {
     getForecast() {
         this.weatherService.getForecast().subscribe(
             (data) => {
-                console.log(data);
                 if (data.successful) {
                     this.weatherData = data;
                 }

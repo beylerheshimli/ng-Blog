@@ -46,11 +46,10 @@ export class BlogComponent implements OnInit, OnDestroy {
         this.processBlog = true;
         this.blogService.getBlogs().subscribe(
             (data) => {
-                console.log(data);
                 if (data.opr) {
                     this.blogs = data.value;
                 } else {
-                    console.log('error', data.value.msg);
+                    console.log('error', data.msg);
                 }
                 this.processBlog = false;
             },
@@ -123,7 +122,6 @@ export class BlogComponent implements OnInit, OnDestroy {
 
         this.blogService.newBlog(blog).subscribe(
             (data) => {
-                console.log(data);
                 if (data.opr) {
 
                     this.getBlogs();

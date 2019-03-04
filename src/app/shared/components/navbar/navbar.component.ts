@@ -31,7 +31,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.dataService.sharedData$.subscribe(data => {
             this.userData = data;
-            console.log(data);
         });
     }
 

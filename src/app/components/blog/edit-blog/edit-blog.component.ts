@@ -47,7 +47,6 @@ export class EditBlogComponent implements OnInit {
         this.processing = true;
         this.blogService.updateBlog(this.blog).subscribe(
             (data) => {
-                console.log(data);
                 if (data.opr) {
                     this.messageClass = 'alert alert-success';
                     this.message = 'Edited';
@@ -79,7 +78,6 @@ export class EditBlogComponent implements OnInit {
 
             this.blogService.deleteBlog(this.currentUrl.id).subscribe(
                 (data) => {
-                    console.log(data);
                     if (data.opr) {
                         this.messageClass = 'alert alert-success';
                         this.message = 'Deleted';

@@ -19,7 +19,6 @@ export class WeatherService {
     }
 
     private mapValue(data): any {
-        console.log('mapValue', data);
         if (data) {
             return {
                 successful: true,
