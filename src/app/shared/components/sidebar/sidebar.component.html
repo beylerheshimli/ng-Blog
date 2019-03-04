@@ -1,0 +1,20 @@
+<nav class="sidebar">
+    <div class="forecast">
+        {{"forecast" | translate}} : {{weatherData.name}} {{weatherData.temp}} C
+        <br>
+        <span>
+           {{"humidity" | translate}} : {{weatherData.humidity}} %
+        </span>
+        <br>
+        <span>
+           {{"pressure" | translate}} : {{weatherData.pressure}} mb
+        </span>
+    </div>
+    <div class="list-group">
+
+
+        <a routerLink="/blog" class="list-group-item">
+            <span class="fa fa-fw fa-book"></span>&nbsp; {{"menuPosts" | translate}}
+        </a>
+    </div>
+</nav>

@@ -1,0 +1,47 @@
+<div class="row show-hide-message" *ngIf="message">
+    <div class="col-md-12">
+        <div [ngClass]="messageClass">
+            {{ message }}
+        </div>
+    </div>
+
+</div>
+
+<form (submit)="updateBlogSubmit()" *ngIf="!loading">
+
+    <div class="form-group">
+        <label for="title_az">{{"title" | translate}} (AZ)</label>
+
+        <input [disabled]="processing" id="title_az" type="text" name="title_az" class="form-control"
+               [(ngModel)]="blog.title_az"/>
+    </div>
+
+    <div class="form-group">
+        <label for="title_en">{{"title" | translate}} (EN)</label>
+
+        <input [disabled]="processing" id="title_en" type="text" name="title_en" class="form-control"
+               [(ngModel)]="blog.title_en"/>
+    </div>
+
+    <div class="form-group">
+        <label for="body_az">{{"body" | translate}} (AZ)</label>
+
+        <textarea [disabled]="processing" id="body_az" name="body_az" rows="8" cols="80" [(ngModel)]="blog.body_az"
+                  class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="body_en">{{"body" | translate}} (EN)</label>
+
+        <textarea [disabled]="processing" id="body_en" name="body_en" rows="8" cols="80" [(ngModel)]="blog.body_en"
+                  class="form-control"></textarea>
+    </div>
+
+    <button [disabled]="processing" type="button" name="button" class="btn btn-danger mr-1"
+            (click)="deleteBlog(blog.id)">{{"delBtn" | translate}}</button>
+
+    <button [disabled]="processing" type="button" name="button" class="btn btn-success mr-1"
+            (click)="goBack()">{{"backBtn" | translate}}
+    </button>
+    <button [disabled]="processing" type="submit" name="save" class="btn btn-info">{{"saveBtn" | translate}}</button>
+</form>

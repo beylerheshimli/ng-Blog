@@ -1,0 +1,69 @@
+$topnav-background-color: #0dae98;
+:host {
+  .navbar {
+    background-color: $topnav-background-color;
+
+    .navbar-brand {
+      color: #fff;
+    }
+
+    .nav-item > a {
+      color: #fff;
+
+      &:hover {
+        color: #cbcbcb;
+      }
+    }
+  }
+
+  .messages {
+    width: 300px;
+
+    .media {
+      border-bottom: 1px solid #ddd;
+      padding: 5px 10px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .media-body {
+      h5 {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .small {
+        margin: 0;
+      }
+
+      .last {
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+  }
+
+  .lang {
+    margin-left: 65px;
+
+    .active {
+      background-color: #ffffff;
+      color: #0d917b !important;
+    }
+  }
+
+  .langItem {
+    border: 1px solid #fff;
+    padding: 0 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #0d917b !important;
+    }
+  }
+}
+
+

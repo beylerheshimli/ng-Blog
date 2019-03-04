@@ -1,0 +1,135 @@
+<section>
+
+    <div class="row p-3">
+        <div class="col-md-12">
+            <h1>{{"menuPosts" | translate}}</h1>
+        </div>
+    </div>
+
+
+    <div class="row p-3">
+        <div class="col-md-12">
+            <button class="btn btn-primary mr-1" *ngIf="userId != 0 && !newPost"
+                    (click)="newBlogForm()"> {{"addBtn" | translate}}
+            </button>
+            <button class="btn btn-default" *ngIf="userId != 0 && !newPost"
+                    (click)="getBlogs()"> {{"reloadBtn" | translate}}</button>
+        </div>
+
+        <div class="col-md-12" *ngIf="newPost">
+
+            <div class="col-md-8 m-auto">
+
+                <form [formGroup]="form" (submit)="onBlogSubmit()">
+
+                    <div class="form-group">
+                        <label for="title_az">{{"title" | translate}} (AZ)</label>
+                        <input type="text" name="title_az" id="title_az" class="form-control" autocomplete="off"
+                               formControlName="title_az"
+                               [ngClass]="{'is-invalid': form.controls.title_az.errors && form.controls.title_az.dirty, 'is-valid': form.controls.title_az.valid && form.controls.title_az.dirty }"
+                        />
+                        <ul class="help-block">
+                            <li *ngIf="form.controls.title_az.dirty && form.controls.title_az.errors?.required">
+                                {{"required" | translate}}
+                            </li>
+                            <li *ngIf="(form.controls.title_az.dirty && form.controls.title_az.errors?.minlength) || (form.controls.title_az.dirty && form.controls.title_az.errors?.maxlength)">
+                                {{"titleMinMax" | translate}}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title_en">{{"title" | translate}} (EN)</label>
+                        <input type="text" id="title_en" name="title_en" class="form-control" autocomplete="off"
+                               formControlName="title_en"
+                               [ngClass]="{'is-invalid': form.controls.title_en.errors && form.controls.title_en.dirty, 'is-valid': form.controls.title_en.valid && form.controls.title_en.dirty }"
+                        />
+                        <ul class="help-block">
+                            <li *ngIf="form.controls.title_en.dirty && form.controls.title_en.errors?.required">
+                                {{"required" | translate}}
+                            </li>
+                            <li *ngIf="(form.controls.title_en.dirty && form.controls.title_en.errors?.minlength) || (form.controls.title_en.dirty && form.controls.title_en.errors?.maxlength)">
+                                {{"titleMinMax" | translate}}
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="body_az">{{"body" | translate}} (AZ)</label>
+                        <textarea name="body_az" id="body_az" rows="5" cols="80" class="form-control"
+                                  [ngClass]="{'is-invalid': form.controls.body_az.errors && form.controls.body_az.dirty, 'is-valid': form.controls.body_az.valid && form.controls.body_az.dirty }"
+                                  formControlName="body_az"
+                        ></textarea>
+                        <ul class="help-block">
+                            <li *ngIf="form.controls.body_az.dirty && form.controls.body_az.errors?.required">
+                                {{"required" | translate}}
+                            </li>
+                            <li *ngIf="(form.controls.body_az.dirty && form.controls.body_az.errors?.minlength) || (form.controls.body_az.dirty && form.controls.body_az.errors?.maxlength)">
+                                {{"bodyMinMax" | translate}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label for="body_en">{{"body" | translate}} (EN)</label>
+                        <textarea name="body_en" id="body_en" rows="5" cols="80" class="form-control"
+                                  formControlName="body_en"
+                                  [ngClass]="{'is-invalid': form.controls.body_en.errors && form.controls.body_en.dirty, 'is-valid': form.controls.body_en.valid && form.controls.body_en.dirty }"
+                        ></textarea>
+                        <ul class="help-block">
+                            <li *ngIf="form.controls.body_en.dirty && form.controls.body_en.errors?.required">
+                                {{"required" | translate}}
+                            </li>
+                            <li *ngIf="(form.controls.body_en.dirty && form.controls.body_en.errors?.minlength) || (form.controls.body_en.dirty && form.controls.body_en.errors?.maxlength)">
+                                {{"bodyMinMax" | translate}}
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <button [disabled]="processing" type="button" name="button" (click)="goBack()"
+                            class="btn btn-primary mr-1">
+                        {{"backBtn" | translate}}
+                    </button>
+
+                    <button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">
+                        {{"saveBtn" | translate}}
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    <app-spinner *ngIf="blogs?.length == 0 && processBlog"></app-spinner>
+    <div *ngIf="blogs?.length >= 0 && !processBlog">
+        <div class="row p-3">
+            <div class="col-md-6 mt-3" *ngFor="let blog of blogs">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <span *ngIf="translate.checkLang('az')">{{blog.title_az}}</span>
+                        <span *ngIf="translate.checkLang('en')">{{blog.title_en}}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" *ngIf="translate.checkLang('az')">{{blog.content_az}}
+                        </p>
+                        <p class="card-text" *ngIf="translate.checkLang('en')">{{blog.content_en}}
+                        </p>
+                    </div>
+                    <div class="card-footer text-muted">
+
+                        <div class="pull-left">
+                            {{"createdBy" | translate}} : {{blog.createdName}} <br>
+                            {{"date" | translate}} : {{blog.created}}
+                        </div>
+                        <div class="pull-right">
+                            <a [routerLink]="['/edit-blog/', blog.id]" class="btn btn-success"
+                               *ngIf="blog.userId === userId">{{"editBtn" | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
